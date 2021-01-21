@@ -9,6 +9,7 @@ public class enemigopersigue : MonoBehaviour
 	Rigidbody rb;
 	public bool activo = true;
 	public float contador;
+	public float contador2;
 	public float random;
 	public float vida = 2f;
 	Renderer m_renderer;
@@ -36,7 +37,7 @@ public class enemigopersigue : MonoBehaviour
 		contador += Time.deltaTime;
 		transform.LookAt(player.transform);
 
-		if (contador >= random)
+		if (contador >= random && perseguir == false )
 		{
 			random = Random.Range(3f, 5f);
 			contador = 0f;
@@ -63,7 +64,7 @@ public class enemigopersigue : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.tag == "bala")
+		if (other.tag == "Bala")
 		{
 			vida--;
 			if (vida <= 0)
