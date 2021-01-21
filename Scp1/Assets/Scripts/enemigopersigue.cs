@@ -33,8 +33,6 @@ public class enemigopersigue : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		rb.velocity = spawnPosition * speed;
-		contador += Time.deltaTime;
 		transform.LookAt(player.transform);
 
 		if (contador >= random && perseguir == false )
@@ -42,6 +40,11 @@ public class enemigopersigue : MonoBehaviour
 			random = Random.Range(3f, 5f);
 			contador = 0f;
 			spawnPosition = new Vector3(Random.insideUnitSphere.x, 0f, Random.insideUnitSphere.z);
+		}
+		else if (perseguir == false)
+		{
+			rb.velocity = spawnPosition * speed;
+			contador += Time.deltaTime;
 		}
 	}
 
@@ -54,10 +57,16 @@ public class enemigopersigue : MonoBehaviour
 			if (hit.collider.gameObject.tag == "Player" && hit.distance <= 20f)
 			{
 				perseguir = true;
+				contador2 = 0;
 			}
 			else
 			{
-				perseguir = false;
+				contador2 += Time.deltaTime;
+				if (contador2 >= 3f)
+				{
+					perseguir = false;
+					contador2 = 0;
+				}
 			}
 		}
 	}
